@@ -1,0 +1,17 @@
+# Runtime dependencies (exact versions; update deliberately and re-run the tests).
+fastapi==0.129.2
+uvicorn[standard]==0.32.1
+SQLAlchemy[asyncio]==2.0.55
+asyncpg==0.30.0
+alembic==1.14.1
+pydantic==2.14.2
+pydantic-settings==2.16.2
+PyJWT[crypto]==2.15.1
+cryptography==50.0.2
+python-multipart==0.0.33
+PyYAML==6.0.3
+httpx==0.28.1
+# Employee import: .xlsx reading/writing (defusedxml hardens XML parsing against entity attacks).
+openpyxl==3.1.5
+et-xmlfile==2.0.0
+defusedxml==0.7.1

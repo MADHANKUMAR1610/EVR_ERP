@@ -1,0 +1,178 @@
+admin	overview	GET	/admin/overview	admin:view
+admin	users	GET	/admin/users	admin:users.view
+admin	user	GET	/admin/users/{uid}	admin:users.view
+admin	userActivity	GET	/admin/users/{uid}/activity	admin:users.view
+admin	createUser	POST	/admin/users	admin:users.manage
+admin	updateUser	PUT	/admin/users/{uid}	admin:users.manage
+admin	setUserStatus	POST	/admin/users/{uid}/status	inactive, reason, version } | admin:users.manage
+admin	setPassword	POST	/admin/users/{uid}/password	admin:users.manage
+admin	permissionCatalog	GET	/admin/permissions	admin:roles.view
+admin	roles	GET	/admin/roles	admin:roles.view
+admin	role	GET	/admin/roles/{rid}	admin:roles.view
+admin	roleUsers	GET	/admin/roles/{rid}/users	admin:roles.view + admin:users.view
+admin	createRole	POST	/admin/roles	admin:roles.manage
+admin	updateRole	PUT	/admin/roles/{rid}	admin:roles.manage
+admin	departments	GET	/admin/departments	admin:organization.view
+admin	saveDepartment	PUT	/admin/departments/{did}	
+admin	saveDepartment	POST	/admin/departments	
+admin	designations	GET	/admin/designations	admin:organization.view
+admin	saveDesignation	PUT	/admin/designations/{did}	
+admin	saveDesignation	POST	/admin/designations	
+admin	reportingLines	GET	/admin/reporting-lines	admin:organization.view + hr.employees:view
+admin	changeManager	POST	/admin/reporting-lines/{eid}	null, effectiveFrom, reason } | admin:organization.manage
+admin	processes	GET	/admin/workflow-processes	admin:workflows.view
+admin	workflows	GET	/admin/workflows	
+admin	workflow	GET	/admin/workflows/{wid}	
+admin	saveWorkflow	PUT	/admin/workflows/{wid}	
+admin	saveWorkflow	POST	/admin/workflows	
+admin	publishWorkflow	POST	/admin/workflows/{wid}/publication	admin:workflows.publish
+admin	archiveWorkflow	POST	/admin/workflows/{wid}/archive	admin:workflows.publish
+admin	companySettings	GET	/admin/settings/company	admin:settings.view
+admin	saveCompanySettings	PUT	/admin/settings/company	admin:settings.manage
+admin	policy	GET	/admin/policies/{area}	admin:policies.view
+admin	savePolicy	PUT	/admin/policies/{area}	admin:policies.manage. For payroll and attendance: admin:policies.payroll-manage
+admin	audit	GET	/admin/audit-events	admin:audit.view
+admin	integrations	GET	/admin/integrations	admin:integrations.view
+admin	saveIntegration	PUT	/admin/integrations/{iid}	admin:integrations.manage
+admin	testIntegration	POST	/admin/integrations/{iid}/test	admin:integrations.manage
+auth	login	POST	/auth/login	
+auth	logout	POST	/auth/logout	
+auth	logout	GET	/auth/session	
+dashboard	getSummary	GET	/dashboard/summary	
+approvals	inbox	GET	/hr/approvals	approved|rejected, requestType, dates) | hr.approvals:view
+attendance	summary	GET	/hr/attendance/summary	hr.attendance:view
+attendance	daily	GET	/hr/attendance/daily	hr.attendance:view
+attendance	dailyDetail	GET	/hr/attendance/daily/{employeeId}	view, or own/team
+attendance	monthly	GET	/hr/attendance/monthly	hr.attendance:view
+attendance	monthlyDetail	GET	/hr/attendance/monthly/{employeeId}	view, or own/team
+attendance	exportMonthly	GET	/hr/attendance/monthly/export	hr.attendance:view
+attendance	calendar	GET	/hr/attendance/employees/{employeeId}/calendar	hr.attendance:view (all employees in scope) or own record (A4)
+attendance	events	GET	/hr/attendance/events	hr.attendance:view
+attendance	event	GET	/hr/attendance/events/{id}	hr.attendance:view
+attendance	corrections	GET	/hr/attendance/corrections	hr.attendance-corrections:view
+attendance	correction	GET	/hr/attendance/corrections/{id}	as above
+attendance	submitCorrection	POST	/hr/attendance/corrections	hr.attendance-corrections:submit or own with hr.self:submit-requests
+attendance	decideCorrection	POST	/hr/attendance/corrections/{id}/decision	hr.attendance-corrections:approve, or team with hr.approvals:act
+attendance	shifts	GET	/hr/shifts	hr.shifts:view
+attendance	createShift	POST	/hr/shifts	
+attendance	updateShift	PUT	/hr/shifts/{id}	
+attendance	assignShift	POST	/hr/shifts/{id}/assignments	hr.shifts:assign
+attendance	devices	GET	/hr/attendance-devices	hr.devices:view
+attendance	deviceSyncHistory	GET	/hr/attendance-devices/{id}/sync-history	partial\|failed, eventsReceived, message }[] | hr.devices:view
+documents	download	GET	/hr/employees/{employeeId}/documents/{documentId}/content	
+documents	checklist	GET	/hr/employees/{employeeId}/document-checklist	
+documents	compliance	GET	/hr/document-compliance	
+documents	complianceSummary	GET	/hr/document-compliance/summary	
+documents	complianceAttention	GET	/hr/document-compliance/attention	
+employee-import	fields	GET	/hr/employee-imports/fields	
+employee-import	validate	POST	/hr/employee-imports/validate	
+employee-import	start	POST	/hr/employee-imports	
+employee-import	job	GET	/hr/employee-imports/{jobId}	
+employees	list	GET	/hr/employees	
+employees	create	POST	/hr/employees	
+employees	lookup	GET	/hr/employees/lookup	
+employees	history	GET	/hr/employees/{employeeId}/history	
+employees	changeStatus	POST	/hr/employees/{employeeId}/status-changes	
+leave	leaveTypes	GET	/hr/leave-types	authenticated
+leave	summary	GET	/hr/leave/summary	hr.leave:view
+leave	requests	GET	/hr/leave/requests	hr.leave:view, or mine
+leave	request	GET	/hr/leave/requests/{rid}	scoped
+leave	estimate	GET	/hr/leave/requests/estimate	as apply
+leave	apply	POST	/hr/leave/requests	as E2
+leave	decide	POST	/hr/leave/requests/{rid}/decision	hr.leave:approve, or team
+leave	cancel	POST	/hr/leave/requests/{rid}/cancellation	own, or hr.leave:apply-on-behalf
+leave	comment	POST	/hr/leave/requests/{rid}/comments	hr.leave:view or the current approver
+leave	approvalWorkflows	GET	/hr/leave/approval-workflows	hr.leave-policies:view or hr.leave-workflows:manage
+leave	approvalWorkflowOptions	GET	/hr/leave/approval-workflows/options	as above
+leave	saveApprovalWorkflow	PUT	/hr/leave/approval-workflows/{wid}	hr.leave-workflows:manage
+leave	saveApprovalWorkflow	POST	/hr/leave/approval-workflows	hr.leave-workflows:manage
+leave	balances	GET	/hr/leave/balances	null, carriedForward, used, pending, available\|null }] | hr.leave-balances:view
+leave	myBalances	GET	/hr/me/leave/balances	hr.self:view
+leave	policies	GET	/hr/leave/policies	monthly\|none, days}, carryForward {allowed, maxDays}, effective dates, appliesTo, half-day and attachment rules | hr.leave-policies:view
+leave	holidays	GET	/hr/holidays	festival\|company }] (per location: open question E-Q3) | authenticated
+leave	permissionRequests	GET	/hr/permission-requests	hr.permission-requests:view
+leave	permissionRequest	GET	/hr/permission-requests/{rid}	hr.permission-requests:view
+leave	submitPermission	POST	/hr/permission-requests	hr.self:submit-requests
+leave	decidePermission	POST	/hr/permission-requests/{rid}/decision	
+leave	overtimeRequests	GET	/hr/overtime-requests	hr.overtime:view
+leave	overtimeRequest	GET	/hr/overtime-requests/{rid}	hr.overtime:view
+leave	submitOvertime	POST	/hr/overtime-requests	hr.self:submit-requests
+leave	decideOvertime	POST	/hr/overtime-requests/{rid}/decision	
+payroll	periods	GET	/hr/payroll/periods	hr.payroll:view
+payroll	summary	GET	/hr/payroll/periods/{periodId}/summary	hr.payroll:view
+payroll	validate	POST	/hr/payroll/periods/{periodId}/validation	
+payroll	validation	GET	/hr/payroll/periods/{periodId}/validation	
+payroll	inputs	GET	/hr/payroll/periods/{periodId}/inputs	hr.payroll:view
+payroll	calculate	POST	/hr/payroll/periods/{periodId}/calculation	hr.payroll:process
+payroll	results	GET	/hr/payroll/periods/{periodId}/results	hr.payroll:view
+payroll	result	GET	/hr/payroll/periods/{periodId}/results/{employeeId}	hr.payroll:view
+payroll	submit	POST	/hr/payroll/periods/{periodId}/submission	hr.payroll:process
+payroll	decide	POST	/hr/payroll/periods/{periodId}/decision	hr.payroll:approve
+payroll	publishPayslips	POST	/hr/payroll/periods/{periodId}/payslips/publication	hr.payroll:process
+payroll	components	GET	/hr/payroll/salary-components	
+payroll	structures	GET	/hr/payroll/salary-structures	
+payroll	salaries	GET	/hr/payroll/employee-salaries	
+payroll	salary	GET	/hr/payroll/employee-salaries/{employeeId}	
+payroll	payslips	GET	/hr/me/payslips	hr.self:view-payslips
+payroll	payslips	GET	/hr/payroll/payslips	hr.payslips:view
+payroll	downloadPayslip	GET	/hr/payroll/payslips/{pid}/document	as stated
+payroll	report	GET	/hr/payroll/reports/register	
+payroll	exportReport	GET	/hr/payroll/reports/register/export	
+payroll	configurations	GET	/hr/payroll/configurations	hr.payroll:view
+payroll	configurationOptions	GET	/hr/payroll/configurations/options	hr.payroll:view
+payroll	saveConfiguration	PUT	/hr/payroll/configurations/{cid}	hr.payroll-config:manage
+payroll	saveConfiguration	POST	/hr/payroll/configurations	hr.payroll-config:manage
+payroll	assignments	GET	/hr/payroll/configuration-assignments	hr.payroll:view
+payroll	previewAssignment	POST	/hr/payroll/configuration-assignments/preview	hr.payroll-assignments:manage
+payroll	createAssignment	POST	/hr/payroll/configuration-assignments	hr.payroll-assignments:manage
+payroll	endAssignment	POST	/hr/payroll/configuration-assignments/{aid}/end	hr.payroll-assignments:manage
+payroll	effectiveConfiguration	GET	/hr/payroll/employees/{employeeId}/effective-configuration	hr.payroll:view
+payroll	assignmentHistory	GET	/hr/payroll/configuration-assignments/history	hr.payroll:view
+performance	summary	GET	/hr/performance/summary	hr.performance:view
+performance	config	GET	/hr/performance/configuration	hr.performance:view
+performance	cycles	GET	/hr/performance/cycles	
+performance	createCycle	POST	/hr/performance/cycles	
+performance	advanceCycle	POST	/hr/performance/cycles/{cid}/advance	hr.performance-cycles:manage
+performance	goals	GET	/hr/performance/goals	
+performance	goal	GET	/hr/performance/goals/{gid}	
+performance	createGoal	POST	/hr/performance/goals	
+performance	recordProgress	POST	/hr/performance/goals/{gid}/progress	hr.goals:manage
+performance	reviews	GET	/hr/performance/reviews	hr.performance:view
+performance	review	GET	/hr/performance/reviews/{rid}	scoped
+performance	saveManagerAssessment	PUT	/hr/performance/reviews/{rid}/manager-assessment	assigned reviewer with hr.performance-reviews:assess *(new)*
+performance	plans	GET	/hr/performance/development-plans	
+performance	createPlan	POST	/hr/performance/development-plans	
+performance	updateAction	PATCH	/hr/performance/development-plans/{pid}/actions/{aid}	
+reference-data	departments	GET	/hr/departments	
+reference-data	designations	GET	/hr/designations	
+reference-data	employmentTypes	GET	/hr/employment-types	
+reference-data	employeeStatuses	GET	/hr/employee-statuses	
+reference-data	workLocations	GET	/hr/work-locations	
+reference-data	shiftOptions	GET	/hr/shifts/options	
+reference-data	attendancePolicyOptions	GET	/hr/attendance-policies/options	
+reference-data	overtimePolicyOptions	GET	/hr/overtime-policies/options	
+reference-data	documentTypes	GET	/hr/document-types	
+reference-data	payrollFields	GET	/hr/employees/payroll-fields	
+reports	catalog	GET	/hr/reports	attendance\|leave\|payroll, title, description, filters[], formats[], defaultSort } | hr.reports:view or hr.reports-payroll:view
+reports	dashboard	GET	/hr/reports/dashboard	hr.reports:view (each figure gated by its module permission)
+reports	run	GET	/hr/reports/{reportId}	per report (below)
+reports	export	GET	/hr/reports/{reportId}/export	as the report
+reports	activity	GET	/hr/reports/activity	hr.reports:view
+workspace	summary	GET	/hr/workspace/summary	
+workspace	tasks	GET	/hr/tasks	
+workspace	activity	GET	/hr/activity	
+workspace	upcomingEvents	GET	/hr/upcoming-events	
+notifications	getFeed	GET	/notifications	
+notifications	list	GET	/notifications/history	Authenticated
+notifications	preferences	GET	/notifications/preferences	email\|sms, available, reason }], categories: [{ category, label, description, channels, mandatory }], version } | Authenticated
+notifications	savePreferences	PUT	/notifications/preferences	Authenticated (own preferences only)
+notifications	markRead	POST	/notifications/{id}/read	
+notifications	markAllRead	POST	/notifications/read-all	
+production	stages	GET	/production/work-order-stages	
+production	list	GET	/production/work-orders	
+production	get	GET	/production/work-orders/{id}	
+production	summary	GET	/production/work-orders/summary	
+employees	get	GET	/hr/employees/{employeeId}	hr.employees:view (contact and payroll fields scoped)
+employees	update	PATCH	/hr/employees/{employeeId}	hr.employees:edit
+documents	list	GET	/hr/employees/{employeeId}/documents	hr.documents:view + organizational scope
+documents	upload	POST	/hr/employees/{employeeId}/documents	hr.documents:upload + organizational scope

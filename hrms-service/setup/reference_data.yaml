@@ -1,0 +1,156 @@
+# EVR Power HRMS: starting reference data (TEMPLATE FOR HR REVIEW)
+#
+# Every value below was copied from the frontend's former sample lists. None of it is an approved
+# company or statutory rule. HR must review and correct this file before loading it into production.
+# Lines marked "REVIEW" are values HR in particular must confirm.
+#
+# Load (create-only: items whose code already exists are skipped, never overwritten):
+#     python -m app.scripts.load_reference_data --file setup/reference_data.yaml --dry-run
+#     python -m app.scripts.load_reference_data --file setup/reference_data.yaml
+# Later changes are made through the /hr/setup and /admin endpoints, which keep the audit trail.
+#
+# STATUS: PENDING HR CONFIRMATION. See docs/HR_CONFIRMATION_PENDING.md for every value awaiting HR.
+# The loader refuses to load this file into production while hr_confirmed is false. Set it to true
+# only after HR has reviewed and approved every section (record who approved it and when).
+
+hr_confirmed: false
+hr_confirmed_by: null      # e.g. "Name, HR Manager"
+hr_confirmed_on: null      # e.g. 2026-11-20
+
+departments:            # code: 1-10 capital letters, digits or hyphens. Optional "parent: <code>".
+  - {code: PRD, name: Production}
+  - {code: WND, name: Winding}
+  - {code: COR, name: Core Building}
+  - {code: ASM, name: Assembly}
+  - {code: QA,  name: Quality Assurance}
+  - {code: TST, name: Testing Lab}
+  - {code: ENG, name: Design & Engineering}
+  - {code: STR, name: Stores}
+  - {code: PUR, name: Purchase}
+  - {code: MNT, name: Maintenance}
+  - {code: PNT, name: Painting & Finishing}
+  - {code: DSP, name: Dispatch}
+  - {code: HR,  name: Human Resources}
+  - {code: FIN, name: Finance & Accounts}
+  - {code: SLS, name: Sales}
+
+designations:           # Optional "departments: [codes]"; empty means any department.
+  - {code: TRN, name: Trainee}
+  - {code: OPR, name: Operator}
+  - {code: SOP, name: Senior Operator}
+  - {code: TEC, name: Technician}
+  - {code: SUP, name: Supervisor}
+  - {code: ENG, name: Engineer}
+  - {code: SEN, name: Senior Engineer}
+  - {code: EXE, name: Executive}
+  - {code: AM,  name: Assistant Manager}
+  - {code: MGR, name: Manager}
+  - {code: HOD, name: Head of Department}
+
+employment_types:
+  - {code: PERM, name: Permanent}
+  - {code: CONT, name: Contract}
+  - {code: APPR, name: Apprentice}
+  - {code: TEMP, name: Temporary}
+
+work_locations:
+  - {code: PLANT1, name: Main Plant}
+  - {code: PLANT2, name: Unit 2}
+  - {code: HO,     name: Head Office}
+  - {code: SITE,   name: Customer Site}
+
+# Employee lifecycle. tone: neutral | info | success | warning | danger | primary.
+# REVIEW: which statuses a new employee may start in, and the allowed moves between statuses.
+# REVIEW: employment_ended marks statuses whose employees no longer work here (excluded from pickers,
+#         counts and the department-head check). reason_required makes a reason mandatory when an
+#         employee is moved into the status. Both are PENDING HR CONFIRMATION; only the template's
+#         "exited" is marked as ended, and no status requires a reason.
+employee_statuses:
+  - {code: on_probation, label: On probation, tone: info,    allowed_on_create: true,  sort_order: 1, employment_ended: false, reason_required: false, transitions: [active, on_notice, exited]}
+  - {code: active,       label: Active,       tone: success, allowed_on_create: true,  sort_order: 2, employment_ended: false, reason_required: false, transitions: [on_notice, suspended, exited]}
+  - {code: on_notice,    label: On notice,    tone: warning, allowed_on_create: false, sort_order: 3, employment_ended: false, reason_required: false, transitions: [active, exited]}
+  - {code: suspended,    label: Suspended,    tone: danger,  allowed_on_create: false, sort_order: 4, employment_ended: false, reason_required: false, transitions: [active, exited]}
+  - {code: exited,       label: Exited,       tone: neutral, allowed_on_create: false, sort_order: 5, employment_ended: true,  reason_required: false, transitions: []}
+
+# Organizational scopes (which employee records each Identity role may reach) are NOT in this file:
+# they are a management decision, set through /hr/setup/employee-access-scopes. None exist by default.
+
+# Names only. The attendance and overtime rules themselves are entered by HR in HR Policies.
+attendance_policies:
+  - {code: AP-STAFF, name: Staff attendance policy}
+  - {code: AP-SHOP,  name: Shop-floor attendance policy}
+
+overtime_policies:
+  - {code: OT-NONE, name: Not eligible}
+  - {code: OT-SHOP, name: Shop-floor overtime}
+
+# Times are company local time (HH:MM). working_days: 1 = Monday ... 7 = Sunday.
+# REVIEW: break_minutes, grace_minutes and working_days are sample values, not company policy.
+shifts:
+  - {code: GEN, name: General shift, start: "09:00", end: "17:30", overnight: false, break_minutes: 30, grace_minutes: 10, working_days: [1, 2, 3, 4, 5, 6], departments: [QA, TST, ENG, STR, PUR, MNT, HR, FIN, SLS]}
+  - {code: A,   name: Shift A,       start: "06:00", end: "14:00", overnight: false, break_minutes: 30, grace_minutes: 5,  working_days: [1, 2, 3, 4, 5, 6], departments: [PRD, WND, COR, ASM, PNT, DSP]}
+  - {code: B,   name: Shift B,       start: "14:00", end: "22:00", overnight: false, break_minutes: 30, grace_minutes: 5,  working_days: [1, 2, 3, 4, 5, 6], departments: [PRD, WND, COR, ASM, PNT, DSP]}
+  - {code: C,   name: Shift C,       start: "22:00", end: "06:00", overnight: true,  break_minutes: 30, grace_minutes: 5,  working_days: [1, 2, 3, 4, 5, 6], departments: [PRD, WND, COR, ASM, PNT, DSP]}
+
+document_categories:
+  - {code: DC-ID,   name: Identity documents}
+  - {code: DC-EDU,  name: Education certificates}
+  - {code: DC-EMP,  name: Employment records}
+  - {code: DC-BANK, name: Bank information}
+  - {code: DC-CO,   name: Company documents}
+
+# REVIEW: which documents are required, which need an expiry date, file types and size limits.
+document_types:
+  - {code: DT-IDP,  name: Identity proof,                       category: DC-ID,   required: true,  expiry_required: false, allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 2}
+  - {code: DT-ADP,  name: Address proof,                        category: DC-ID,   required: true,  expiry_required: false, allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 2}
+  - {code: DT-PASS, name: Passport,                             category: DC-ID,   required: false, expiry_required: true,  allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 2}
+  - {code: DT-EDU,  name: Educational certificate,              category: DC-EDU,  required: true,  expiry_required: false, allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 5}
+  - {code: DT-OFR,  name: Offer letter,                         category: DC-EMP,  required: true,  expiry_required: false, allowed_extensions: [.pdf], max_size_mb: 5}
+  - {code: DT-APT,  name: Appointment letter,                   category: DC-EMP,  required: true,  expiry_required: false, allowed_extensions: [.pdf], max_size_mb: 5}
+  - {code: DT-REL,  name: Relieving letter (previous employer), category: DC-EMP,  required: false, expiry_required: false, allowed_extensions: [.pdf], max_size_mb: 5}
+  - {code: DT-BANK, name: Bank account proof,                   category: DC-BANK, required: true,  expiry_required: false, allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 2}
+  - {code: DT-MED,  name: Medical fitness certificate,          category: DC-CO,   required: false, expiry_required: true,  allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 5}
+  - {code: DT-OTH,  name: Other,                                category: DC-CO,   required: false, expiry_required: false, allowed_extensions: [.pdf, .jpg, .jpeg, .png], max_size_mb: 5}
+
+# REVIEW: the approved list of payroll fields must come from Finance/HR.
+payroll_fields:
+  - key: payrollGroup
+    label: Payroll group
+    type: select
+    sort_order: 1
+    options: [{value: group_a, label: Group A}, {value: group_b, label: Group B}]
+  - key: paymentMode
+    label: Payment mode
+    type: select
+    sort_order: 2
+    options: [{value: bank_transfer, label: Bank transfer}, {value: cheque, label: Cheque}]
+  - key: bankAccountNumber
+    label: Bank account number
+    type: text
+    sensitive: true
+    max_length: 18
+    pattern: "^[0-9]{6,18}$"
+    pattern_message: "Enter 6–18 digits."
+    hint: "Write-only: the current value is never shown in full."
+    sort_order: 3
+  - key: bankIfsc
+    label: Bank IFSC
+    type: text
+    max_length: 11
+    pattern: "^[A-Z]{4}0[A-Z0-9]{6}$"
+    pattern_message: "Use the 11-character IFSC format, e.g. ABCD0123456."
+    sort_order: 4
+
+# Approval workflows (contract G5). The owner's proposed default for attendance corrections:
+# the employee (or HR on their behalf) submits -> the reporting manager reviews (required step).
+# HR with hr.attendance-corrections:approve can always decide (oversight). Escalation is OFF:
+# set `fallback` (role or user) and `escalateAfterHours` in Administration -> Workflows.
+# REVIEW: the steps, approvers and escalation are PENDING HR CONFIRMATION. The loader publishes the
+# workflow from the day it is loaded (only if no workflow with this name exists yet).
+workflows:
+  - name: Attendance correction (default)
+    process: attendance_correction
+    description: Reporting manager reviews; HR has oversight. Template pending HR confirmation.
+    publish: true
+    steps:
+      - {id: manager-review, name: Reporting manager review, approverType: reporting_manager, roleId: null, userId: null, required: true, condition: null, fallback: null, escalateAfterHours: null}

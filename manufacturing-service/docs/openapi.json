@@ -1,0 +1,1724 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "EVR Power ERP \u2014 Manufacturing service",
+    "description": "Production work orders, the shop-floor route and the company dashboard. Read-only.",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Liveness: the process is running",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Health Health Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Readiness: the database is reachable",
+        "operationId": "ready_health_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Ready Health Ready Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/production/work-order-stages": {
+      "get": {
+        "tags": [
+          "Production"
+        ],
+        "summary": "The shop-floor route (configuration)",
+        "operationId": "stages_api_v1_production_work_order_stages_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/WorkOrderStageOut"
+                  },
+                  "type": "array",
+                  "title": "Response Stages Api V1 Production Work Order Stages Get"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/production/work-orders/summary": {
+      "get": {
+        "tags": [
+          "Production"
+        ],
+        "summary": "Pipeline figures",
+        "operationId": "summary_api_v1_production_work_orders_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderSummaryOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/production/work-orders": {
+      "get": {
+        "tags": [
+          "Production"
+        ],
+        "summary": "Work orders",
+        "operationId": "work_orders_api_v1_production_work_orders_get",
+        "parameters": [
+          {
+            "name": "stage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 30
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Stage"
+            }
+          },
+          {
+            "name": "view",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "all",
+                    "delayed",
+                    "blocked",
+                    "due_soon"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "View"
+            }
+          },
+          {
+            "name": "workCentre",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 80
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Workcentre"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "1-based page number",
+              "default": 1,
+              "title": "Page"
+            },
+            "description": "1-based page number"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "description": "10, 25, 50 or 100",
+              "default": 25,
+              "title": "Pagesize"
+            },
+            "description": "10, 25, 50 or 100"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "field:asc or field:desc",
+              "title": "Sort"
+            },
+            "description": "field:asc or field:desc"
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Free-text search",
+              "title": "Q"
+            },
+            "description": "Free-text search"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_WorkOrderListItemOut_"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/production/work-orders/{work_order_id}": {
+      "get": {
+        "tags": [
+          "Production"
+        ],
+        "summary": "One work order (id or work order number)",
+        "operationId": "work_order_api_v1_production_work_orders__work_order_id__get",
+        "parameters": [
+          {
+            "name": "work_order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Work Order Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkOrderOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Forbidden"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Conflict"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Unprocessable Content"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Too Many Requests"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            },
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/dashboard/summary": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Company overview figures",
+        "operationId": "dashboard_api_v1_dashboard_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummaryOut"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorEnvelope"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BlockerOut": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "material",
+              "quality",
+              "engineering",
+              "capacity"
+            ],
+            "title": "Type"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "since": {
+            "type": "string",
+            "title": "Since"
+          }
+        },
+        "type": "object",
+        "required": [
+          "type",
+          "description",
+          "since"
+        ],
+        "title": "BlockerOut"
+      },
+      "DashboardKpisOut": {
+        "properties": {
+          "openOrders": {
+            "type": "integer",
+            "title": "Openorders"
+          },
+          "unitsInProduction": {
+            "type": "integer",
+            "title": "Unitsinproduction"
+          },
+          "testsPending": {
+            "type": "integer",
+            "title": "Testspending"
+          },
+          "dispatchesThisWeek": {
+            "type": "integer",
+            "title": "Dispatchesthisweek"
+          }
+        },
+        "type": "object",
+        "required": [
+          "openOrders",
+          "unitsInProduction",
+          "testsPending",
+          "dispatchesThisWeek"
+        ],
+        "title": "DashboardKpisOut"
+      },
+      "DashboardSummaryOut": {
+        "properties": {
+          "kpis": {
+            "$ref": "#/components/schemas/DashboardKpisOut"
+          },
+          "monthlyOutput": {
+            "items": {
+              "$ref": "#/components/schemas/MonthlyOutputOut"
+            },
+            "type": "array",
+            "title": "Monthlyoutput"
+          },
+          "recentOrders": {
+            "items": {
+              "$ref": "#/components/schemas/RecentOrderOut"
+            },
+            "type": "array",
+            "title": "Recentorders"
+          }
+        },
+        "type": "object",
+        "required": [
+          "kpis",
+          "monthlyOutput",
+          "recentOrders"
+        ],
+        "title": "DashboardSummaryOut"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "details": {
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            },
+            "type": "array",
+            "title": "Details"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "details"
+        ],
+        "title": "ErrorBody"
+      },
+      "ErrorDetail": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Field"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "field",
+          "message"
+        ],
+        "title": "ErrorDetail"
+      },
+      "ErrorEnvelope": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "title": "ErrorEnvelope"
+      },
+      "MaterialLineOut": {
+        "properties": {
+          "item": {
+            "type": "string",
+            "title": "Item"
+          },
+          "required": {
+            "type": "string",
+            "title": "Required"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "issued",
+              "available",
+              "short",
+              "on_order"
+            ],
+            "title": "Status"
+          },
+          "expectedDate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expecteddate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "item",
+          "required",
+          "status",
+          "expectedDate"
+        ],
+        "title": "MaterialLineOut"
+      },
+      "MonthlyOutputOut": {
+        "properties": {
+          "month": {
+            "type": "string",
+            "title": "Month"
+          },
+          "unitsCompleted": {
+            "type": "integer",
+            "title": "Unitscompleted"
+          },
+          "mvaCompleted": {
+            "type": "number",
+            "title": "Mvacompleted"
+          }
+        },
+        "type": "object",
+        "required": [
+          "month",
+          "unitsCompleted",
+          "mvaCompleted"
+        ],
+        "title": "MonthlyOutputOut"
+      },
+      "NextActionOut": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "owner": {
+            "$ref": "#/components/schemas/PersonOut"
+          },
+          "dueDate": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duedate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "label",
+          "owner",
+          "dueDate"
+        ],
+        "title": "NextActionOut"
+      },
+      "PageMeta": {
+        "properties": {
+          "page": {
+            "type": "integer",
+            "title": "Page"
+          },
+          "pageSize": {
+            "type": "integer",
+            "title": "Pagesize"
+          },
+          "totalItems": {
+            "type": "integer",
+            "title": "Totalitems"
+          },
+          "totalPages": {
+            "type": "integer",
+            "title": "Totalpages"
+          }
+        },
+        "type": "object",
+        "required": [
+          "page",
+          "pageSize",
+          "totalItems",
+          "totalPages"
+        ],
+        "title": "PageMeta"
+      },
+      "Page_WorkOrderListItemOut_": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/WorkOrderListItemOut"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "meta"
+        ],
+        "title": "Page[WorkOrderListItemOut]"
+      },
+      "PersonOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "role"
+        ],
+        "title": "PersonOut"
+      },
+      "ProductOut": {
+        "properties": {
+          "ratingKva": {
+            "type": "number",
+            "title": "Ratingkva"
+          },
+          "voltageRatio": {
+            "type": "string",
+            "title": "Voltageratio"
+          },
+          "vectorGroup": {
+            "type": "string",
+            "title": "Vectorgroup"
+          },
+          "cooling": {
+            "type": "string",
+            "title": "Cooling"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ratingKva",
+          "voltageRatio",
+          "vectorGroup",
+          "cooling"
+        ],
+        "title": "ProductOut"
+      },
+      "RecentOrderOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "orderNo": {
+            "type": "string",
+            "title": "Orderno"
+          },
+          "customerName": {
+            "type": "string",
+            "title": "Customername"
+          },
+          "ratingKva": {
+            "type": "number",
+            "title": "Ratingkva"
+          },
+          "quantity": {
+            "type": "integer",
+            "title": "Quantity"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "confirmed",
+              "in_design",
+              "in_production",
+              "testing",
+              "ready_to_dispatch",
+              "dispatched",
+              "on_hold"
+            ],
+            "title": "Status"
+          },
+          "dueDate": {
+            "type": "string",
+            "title": "Duedate"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "orderNo",
+          "customerName",
+          "ratingKva",
+          "quantity",
+          "status",
+          "dueDate"
+        ],
+        "title": "RecentOrderOut"
+      },
+      "SalesOrderRefOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "orderNo": {
+            "type": "string",
+            "title": "Orderno"
+          },
+          "customerName": {
+            "type": "string",
+            "title": "Customername"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "orderNo",
+          "customerName"
+        ],
+        "title": "SalesOrderRefOut"
+      },
+      "ScheduleOut": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "on_track",
+              "at_risk",
+              "delayed"
+            ],
+            "title": "Status"
+          },
+          "varianceDays": {
+            "type": "integer",
+            "title": "Variancedays"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "varianceDays"
+        ],
+        "title": "ScheduleOut"
+      },
+      "StageCountOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "label",
+          "count"
+        ],
+        "title": "StageCountOut"
+      },
+      "StageRecordOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "done",
+              "current",
+              "pending"
+            ],
+            "title": "State"
+          },
+          "startedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Startedat"
+          },
+          "completedAt": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Completedat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "label",
+          "state",
+          "startedAt",
+          "completedAt"
+        ],
+        "title": "StageRecordOut"
+      },
+      "UnitOut": {
+        "properties": {
+          "index": {
+            "type": "integer",
+            "title": "Index"
+          },
+          "of": {
+            "type": "integer",
+            "title": "Of"
+          }
+        },
+        "type": "object",
+        "required": [
+          "index",
+          "of"
+        ],
+        "title": "UnitOut"
+      },
+      "WorkOrderEventOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "at": {
+            "type": "string",
+            "title": "At"
+          },
+          "by": {
+            "type": "string",
+            "title": "By"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "at",
+          "by",
+          "summary"
+        ],
+        "title": "WorkOrderEventOut"
+      },
+      "WorkOrderListItemOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "workOrderNo": {
+            "type": "string",
+            "title": "Workorderno"
+          },
+          "salesOrder": {
+            "$ref": "#/components/schemas/SalesOrderRefOut"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/UnitOut"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductOut"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "in_progress",
+              "on_hold",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/WorkOrderStageOut"
+          },
+          "stageCount": {
+            "type": "integer",
+            "title": "Stagecount"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "normal"
+            ],
+            "title": "Priority"
+          },
+          "workCentre": {
+            "type": "string",
+            "title": "Workcentre"
+          },
+          "plannedStart": {
+            "type": "string",
+            "title": "Plannedstart"
+          },
+          "plannedFinish": {
+            "type": "string",
+            "title": "Plannedfinish"
+          },
+          "customerDueDate": {
+            "type": "string",
+            "title": "Customerduedate"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleOut"
+          },
+          "blocker": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BlockerOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nextAction": {
+            "$ref": "#/components/schemas/NextActionOut"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "workOrderNo",
+          "salesOrder",
+          "unit",
+          "product",
+          "status",
+          "stage",
+          "stageCount",
+          "priority",
+          "workCentre",
+          "plannedStart",
+          "plannedFinish",
+          "customerDueDate",
+          "schedule",
+          "blocker",
+          "nextAction"
+        ],
+        "title": "WorkOrderListItemOut"
+      },
+      "WorkOrderOut": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "workOrderNo": {
+            "type": "string",
+            "title": "Workorderno"
+          },
+          "salesOrder": {
+            "$ref": "#/components/schemas/SalesOrderRefOut"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/UnitOut"
+          },
+          "product": {
+            "$ref": "#/components/schemas/ProductOut"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "in_progress",
+              "on_hold",
+              "completed"
+            ],
+            "title": "Status"
+          },
+          "stage": {
+            "$ref": "#/components/schemas/WorkOrderStageOut"
+          },
+          "stageCount": {
+            "type": "integer",
+            "title": "Stagecount"
+          },
+          "priority": {
+            "type": "string",
+            "enum": [
+              "high",
+              "normal"
+            ],
+            "title": "Priority"
+          },
+          "workCentre": {
+            "type": "string",
+            "title": "Workcentre"
+          },
+          "plannedStart": {
+            "type": "string",
+            "title": "Plannedstart"
+          },
+          "plannedFinish": {
+            "type": "string",
+            "title": "Plannedfinish"
+          },
+          "customerDueDate": {
+            "type": "string",
+            "title": "Customerduedate"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleOut"
+          },
+          "blocker": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BlockerOut"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nextAction": {
+            "$ref": "#/components/schemas/NextActionOut"
+          },
+          "stages": {
+            "items": {
+              "$ref": "#/components/schemas/StageRecordOut"
+            },
+            "type": "array",
+            "title": "Stages"
+          },
+          "materials": {
+            "items": {
+              "$ref": "#/components/schemas/MaterialLineOut"
+            },
+            "type": "array",
+            "title": "Materials"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/WorkOrderEventOut"
+            },
+            "type": "array",
+            "title": "History"
+          },
+          "designRef": {
+            "type": "string",
+            "title": "Designref"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "workOrderNo",
+          "salesOrder",
+          "unit",
+          "product",
+          "status",
+          "stage",
+          "stageCount",
+          "priority",
+          "workCentre",
+          "plannedStart",
+          "plannedFinish",
+          "customerDueDate",
+          "schedule",
+          "blocker",
+          "nextAction",
+          "stages",
+          "materials",
+          "history",
+          "designRef"
+        ],
+        "title": "WorkOrderOut"
+      },
+      "WorkOrderStageOut": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "sequence": {
+            "type": "integer",
+            "title": "Sequence"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "label",
+          "sequence"
+        ],
+        "title": "WorkOrderStageOut"
+      },
+      "WorkOrderSummaryOut": {
+        "properties": {
+          "byStage": {
+            "items": {
+              "$ref": "#/components/schemas/StageCountOut"
+            },
+            "type": "array",
+            "title": "Bystage"
+          },
+          "open": {
+            "type": "integer",
+            "title": "Open"
+          },
+          "delayed": {
+            "type": "integer",
+            "title": "Delayed"
+          },
+          "atRisk": {
+            "type": "integer",
+            "title": "Atrisk"
+          },
+          "blocked": {
+            "type": "integer",
+            "title": "Blocked"
+          },
+          "blockedByMaterial": {
+            "type": "integer",
+            "title": "Blockedbymaterial"
+          },
+          "dueSoon": {
+            "type": "integer",
+            "title": "Duesoon"
+          },
+          "dueWindowDays": {
+            "type": "integer",
+            "title": "Duewindowdays"
+          },
+          "asOf": {
+            "type": "string",
+            "title": "Asof"
+          }
+        },
+        "type": "object",
+        "required": [
+          "byStage",
+          "open",
+          "delayed",
+          "atRisk",
+          "blocked",
+          "blockedByMaterial",
+          "dueSoon",
+          "dueWindowDays",
+          "asOf"
+        ],
+        "title": "WorkOrderSummaryOut"
+      }
+    }
+  }
+}

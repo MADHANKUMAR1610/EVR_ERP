@@ -1,0 +1,19 @@
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+# Uploaded files (private data) — keep the folder, never its contents
+storage/*
+!storage/.gitkeep
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
